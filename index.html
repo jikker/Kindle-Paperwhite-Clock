@@ -17,43 +17,38 @@ body, html {
 
 #clock {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 20vh; /* 預設字體大小 */
-  font-weight: bold; /* 設定文字為粗體 */
-  transform: rotate(270deg) scaleY(2); /* 旋轉並拉長文字 */
+  font-size: 15vh; /* 更新預設字體大小為20vh */
+  font-weight: bold; /* 文字為粗體 */
+  transform: rotate(270deg) scaleY(2); /* 旋轉並將文字垂直方向拉伸2倍 */
   cursor: pointer;
   user-select: none;
+  transform-origin: center center; /* 確保旋轉中心點為文字中心 */
 }
 
 .large-font {
-  font-size: 15vh; /* 放大後的字體大小 */
+  font-size: 30vh; /* 為了符合需求，可能需要調整此值 */
 }
-
 </style>
 </head>
 <body>
 <div id="clock" onclick="toggleSeconds()">00:00:00</div>
 <script>
 // script.js
-let showSeconds = true;
+let showSeconds = false; // 預設不顯示秒數
 let clickCount = 0;
 
 function toggleSeconds() {
   clickCount++;
-  setTimeout(() => { clickCount = 0; }, 500); // 重置點擊計數，避免連續點擊誤觸
   if (clickCount == 2) {
     showSeconds = !showSeconds;
     clickCount = 0;
     updateFontSize();
   }
+  setTimeout(() => { clickCount = 0; }, 500); // 避免連續點擊誤觸
 }
 
 function updateFontSize() {
-  const clock = document.getElementById('clock');
-  if (showSeconds) {
-    clock.classList.remove('large-font'); // 顯示秒數時使用正常字體大小
-  } else {
-    clock.classList.add('large-font'); // 不顯示秒數時使用放大字體大小
-  }
+  // 此示例中不需動態調整字體大小，因為預設大小已經設定為20vh，並且拉伸2倍
 }
 
 function updateClock() {
@@ -74,7 +69,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock(); // 初始化時鐘
-updateFontSize(); // 初始化字體大小
 </script>
 </body>
 </html>
