@@ -6,21 +6,28 @@
 <title>旋轉時鐘</title>
 <style>
 /* style.css */
-
 body, html {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
+  margin: 0;
 }
 
 #clock {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 100px;
+  font-size: 10vh; /* 預設字體大小 */
   transform: rotate(90deg);
   cursor: pointer;
+  user-select: none;
 }
+
+/* 新增放大後的字體大小類別 */
+.large-font {
+  font-size: 15vh; /* 放大後的字體大小 */
+}
+
 </style>
 </head>
 <body>
@@ -32,9 +39,20 @@ let clickCount = 0;
 
 function toggleSeconds() {
   clickCount++;
+  setTimeout(() => { clickCount = 0; }, 500); // 重置點擊計數，避免連續點擊誤觸
   if (clickCount == 2) {
     showSeconds = !showSeconds;
     clickCount = 0;
+    updateFontSize();
+  }
+}
+
+function updateFontSize() {
+  const clock = document.getElementById('clock');
+  if (showSeconds) {
+    clock.classList.remove('large-font'); // 顯示秒數時使用正常字體大小
+  } else {
+    clock.classList.add('large-font'); // 不顯示秒數時使用放大字體大小
   }
 }
 
@@ -52,6 +70,8 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock(); // 初始化時鐘
+updateFontSize(); // 初始化字體大小
+
 </script>
 </body>
 </html>
